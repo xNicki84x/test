@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Portfolio</title>
+</head>
+<body>
+    <header>
+        <h1>Nicole Rinke</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>Über mich</h2>
+        <p>Hier kannst du etwas über mich schreiben.</p>
+    </section>
+
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div>
+            <!-- Hier kannst du deine Projekte präsentieren -->
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Kontakt</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">E-Mail:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="message">Nachricht:</label><br>
+            <textarea id="message" name="message" rows="4" required></textarea><br><br>
+            <button type="submit">Senden</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Mein Portfolio. Alle Rechte vorbehalten.</p>
+    </footer>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); // Verhindert das Standard-Verhalten des Formulars (Seitenneuladen)
+
+            // Erfasse die Formulardaten
+            const formData = new FormData(form);
+            const formDataObject = {};
+            formData.forEach(function(value, key) {
+                formDataObject[key] = value;
+            });
+
+            // Sende die Daten an eine Backend-URL (fiktives Beispiel)
+            const backendURL = "nicole.rinke@teilnehmer.neustarter.de";
+            fetch(backendURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formDataObject)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                alert("Die Nachricht wurde erfolgreich gesendet!");
+                form.reset(); // Formular zurücksetzen
+            })
+            .catch(error => {
+                console.error("There was an error sending the message:", error);
+                alert("Es gab ein Problem beim Senden der Nachricht. Bitte versuche es später erneut.");
+            });
+        });
+    });
+</script>
